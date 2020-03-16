@@ -8,17 +8,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class FlappyBird extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
+	Texture background;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		background = new Texture("background.png");
 	}
 
 	@Override
 	public void render () {
-
+batch.begin();
+batch.draw(background,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+batch.end();
 	}
 	
 	@Override
