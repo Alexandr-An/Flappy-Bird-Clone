@@ -41,6 +41,9 @@ public class FlappyBird extends ApplicationAdapter {
 	Circle birdCircle;
 	/*ShapeRenderer shapeRenderer;*/
 
+	int gameScore = 0;
+	int passedTubeIndex = 0;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -80,8 +83,13 @@ distanceBetweenTubes = Gdx.graphics.getWidth() / 2;
 			gameStateFlag = 1;
 		}
 		if(gameStateFlag ==1){
-
-
+Gdx.app.log("Game score", String.valueOf(gameScore));
+        if (tubeX[passedTubeIndex] < Gdx.graphics.getWidth() / 2){
+        	gameScore++;
+        	if (passedTubeIndex < tubesNumber - 1){
+        		passedTubeIndex++;
+			}else  passedTubeIndex =0;
+		}
 
 			if(Gdx.input.justTouched()){
 				fallingSpeed = -20;
