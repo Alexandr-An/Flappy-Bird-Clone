@@ -39,13 +39,13 @@ public class FlappyBird extends ApplicationAdapter {
 	Rectangle[] topTubeRectangles;
 	Rectangle[] bottomTubeRectangles;
 	Circle birdCircle;
-	ShapeRenderer shapeRenderer;
+	/*ShapeRenderer shapeRenderer;*/
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		background = new Texture("background.png");
-		shapeRenderer = new ShapeRenderer();
+		/*shapeRenderer = new ShapeRenderer();*/
 
         birdCircle = new Circle();
         topTubeRectangles = new Rectangle[tubesNumber];
@@ -130,25 +130,27 @@ batch.end();
 
 birdCircle.set(Gdx.graphics.getWidth() / 2,flyHeight+ bird[birdStateFlag].getHeight() / 2,
 		bird[birdStateFlag].getWidth() / 2);
+/*
 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 shapeRenderer.setColor(Color.CYAN);
 shapeRenderer.circle(birdCircle.x, birdCircle.y, birdCircle.radius);
+*/
 
         for (int i = 0; i < tubesNumber ; i++) {
-            shapeRenderer.rect( tubeX[i],
+           /* shapeRenderer.rect( tubeX[i],
                     Gdx.graphics.getHeight() / 2 + spaceBetweenTubes / 2
                             + tubeShift[i],
                     topTube.getWidth(), topTube.getHeight());
             shapeRenderer.rect(tubeX[i],
                     Gdx.graphics.getHeight() / 2 - spaceBetweenTubes / 2 -
                             bottomTube.getHeight() +
-                            tubeShift[i],bottomTube.getWidth(), bottomTube.getHeight());
+                            tubeShift[i],bottomTube.getWidth(), bottomTube.getHeight());*/
             if (Intersector.overlaps(birdCircle, topTubeRectangles[i])||
 					Intersector.overlaps(birdCircle, bottomTubeRectangles[i])){
 Gdx.app.log("Intersected", "Bump");
 			}
         }
-shapeRenderer.end();
+/*shapeRenderer.end();*/
 
 
 	}
