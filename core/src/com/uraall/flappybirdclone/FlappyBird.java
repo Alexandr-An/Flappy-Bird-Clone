@@ -13,7 +13,7 @@ public class FlappyBird extends ApplicationAdapter {
 	int birdStateFlag = 0;
 	float flyHeight;
 	float fallingSpeed = 0;
-
+	int gameStateFlag = 0;
 
 	@Override
 	public void create () {
@@ -27,8 +27,15 @@ public class FlappyBird extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+
+		if(gameStateFlag ==1){
 	  fallingSpeed++;
 	  flyHeight -= fallingSpeed;
+		}else {
+			if(Gdx.input.justTouched()){
+				gameStateFlag = 1;
+			}
+		}
 
 	    if(birdStateFlag == 0){
 	        birdStateFlag = 1;
