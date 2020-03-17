@@ -22,6 +22,9 @@ public class FlappyBird extends ApplicationAdapter {
 	Random random;
 	float tubeShift;
 
+	int tubeSpeed =2;
+	float tubeX;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -33,6 +36,7 @@ public class FlappyBird extends ApplicationAdapter {
 		 topTube = new Texture("top_tube.png");
 		bottomTube = new Texture("bottom_tube.png");
 		random = new Random();
+		tubeX = Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2;
 
 	}
 
@@ -61,11 +65,13 @@ if(flyHeight > 0 || fallingSpeed < 0){
 				gameStateFlag = 1;
 			}
 		}
-		batch.draw(topTube, Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2,
+		tubeX = tubeX - tubeSpeed;
+		batch.draw(topTube, tubeX,
                 Gdx.graphics.getHeight() / 2 + spaceBetweenTubes /2
 		+ tubeShift);
-		batch.draw(bottomTube, Gdx.graphics.getWidth() / 2 - bottomTube.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - spaceBetweenTubes /2 - bottomTube.getHeight() +
+		batch.draw(bottomTube, tubeX,
+                Gdx.graphics.getHeight() / 2 - spaceBetweenTubes /2 -
+						bottomTube.getHeight() +
 				tubeShift);
 
 	    if(birdStateFlag == 0){
