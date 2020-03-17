@@ -20,10 +20,15 @@ public class FlappyBird extends ApplicationAdapter {
 	Texture bottomTube;
 	int spaceBetweenTubes = 500;
 	Random random;
-	float tubeShift;
+
 
 	int tubeSpeed =2;
-	float tubeX;
+
+
+	int tubesNumber = 7;
+	float distanceBetweenTubes;
+	float tubeX [] = new float[tubesNumber];
+	float tubeShift[] = new  float[tubesNumber];
 
 	@Override
 	public void create () {
@@ -36,8 +41,14 @@ public class FlappyBird extends ApplicationAdapter {
 		 topTube = new Texture("top_tube.png");
 		bottomTube = new Texture("bottom_tube.png");
 		random = new Random();
-		tubeX = Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2;
 
+distanceBetweenTubes = Gdx.graphics.getWidth() / 2;
+
+		for (int i = 0; i < tubesNumber; i++) {
+			tubeX[i] = Gdx.graphics.getWidth() / 2 - topTube.getWidth() / 2 + i *distanceBetweenTubes;
+			tubeShift[i] = (random.nextFloat() - 0.5f) *
+					(Gdx.graphics.getHeight() - spaceBetweenTubes -200);
+		}
 	}
 
 	@Override
@@ -54,8 +65,7 @@ public class FlappyBird extends ApplicationAdapter {
 
 			if(Gdx.input.justTouched()){
 				fallingSpeed = -20;
-				tubeShift = (random.nextFloat() - 0.5f) *
-						(Gdx.graphics.getHeight() - spaceBetweenTubes -200);
+
 			}
 if(flyHeight > 0 || fallingSpeed < 0){
 	  fallingSpeed++;
@@ -65,15 +75,22 @@ if(flyHeight > 0 || fallingSpeed < 0){
 				gameStateFlag = 1;
 			}
 		}
-		tubeX = tubeX - tubeSpeed;
-		batch.draw(topTube, tubeX,
-                Gdx.graphics.getHeight() / 2 + spaceBetweenTubes /2
-		+ tubeShift);
-		batch.draw(bottomTube, tubeX,
-                Gdx.graphics.getHeight() / 2 - spaceBetweenTubes /2 -
-						bottomTube.getHeight() +
-				tubeShift);
+		for (int i = 0; i < tubesNumber; i++) {
+if(tubeX[i] < 0){
+	tubeX[i] = tubesNumber * distanceBetweenTubes;
+}else {
+	tubeX[i]-=tubeSpeed;
+}
 
+			tubeX[i] = tubeX[i] - tubeSpeed;
+			batch.draw(topTube, tubeX[i],
+					Gdx.graphics.getHeight() / 2 + spaceBetweenTubes / 2
+							+ tubeShift[i]);
+			batch.draw(bottomTube, tubeX[i],
+					Gdx.graphics.getHeight() / 2 - spaceBetweenTubes / 2 -
+							bottomTube.getHeight() +
+							tubeShift[i]);
+		}
 	    if(birdStateFlag == 0){
 	        birdStateFlag = 1;
         }else birdStateFlag =0;
